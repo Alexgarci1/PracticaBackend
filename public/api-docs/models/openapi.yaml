@@ -690,8 +690,6 @@ paths:
       summary: Determines if personname exists
       description: Returns status code 204 if `personname` exists.
       operationId: existsPerson
-      parameters:
-        - $ref: '#/components/parameters/personName'
       responses:
         '204':
           description: Personname exists <Response body is empty>
@@ -1511,6 +1509,34 @@ components:
         enum:
           - entities
           - persons
+
+    elementPersonRelParam:
+      name: elementType
+      in: path
+      description: |-
+        Sets the type of item related to the Person:
+        <li><b>entities</b>: Entities type element
+      required: true
+      schema:
+        type: string
+        enum:
+          - entities
+
+    elementEntityRelParam:
+      name: elementType
+      in: path
+      description: |-
+        Sets the type of item related to the Entity:
+        <li><b>products</b>: Products type element
+        <li><b>persons</b>: Persons type element
+        <li><b>associations</b>: Associations type element
+      required: true
+      schema:
+        type: string
+        enum:
+          - products
+          - persons
+          - associations
 
   headers:
     ETag:
