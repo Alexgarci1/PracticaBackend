@@ -21,7 +21,7 @@ return function (App $app) {
 
     $REGEX_ASOCIACION_ID = '/{asociacionId:[0-9]+}';
     $REGEX_ELEMENT_ID = '/{elementId:[0-9]+}';
-    $REGEX_ELEMENT_NAME = '{name:[ a-zA-Z0-9()\u00e1\u00e9\u00ed\u00f3\u00fa\u00c1\u00c9\u00cd\u00d3\u00da\u00f1\u00d1 %$\.+-]+}';
+    $REGEX_ELEMENT_NAME = '{name:[ a-zA-Z0-9()áéíóúÁÉÍÓÚñÑ %$\.+-]+}';
     $UNLIMITED_OPTIONAL_PARAMETERS = '/[{params:.*}]';
 
     // CGET|HEAD: Returns all asociaciones

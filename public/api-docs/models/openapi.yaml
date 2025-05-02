@@ -1057,11 +1057,7 @@ paths:
       security:
         - MiWApiSecurity: [ writer ]
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Asociacion'
+            $ref: '#/components/requestBodies/AsociacionCreateRequestBody'
       responses:
         '201':
           description: '`Created`: asociacion created'
@@ -1672,6 +1668,40 @@ components:
                 maxLength: 2047
                 format: url
             required: [ 'name' ]
+
+
+    AsociacionCreateRequestBody:
+      description: '`Asociacion` data to create'
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the asociacion
+              websiteUrl:
+                type: string
+                description: Website URL of the asociacion
+              birthDate:
+                type: string
+                format: date
+                description: Birth date (optional)
+              deathDate:
+                type: string
+                format: date
+                description: Death date (optional)
+              imageUrl:
+                type: string
+                description: URL to an image (optional)
+              wikiUrl:
+                type: string
+                description: Wikipedia URL (optional)
+            required:
+              - name
+              - websiteUrl
+
 
   parameters:
     userId:
