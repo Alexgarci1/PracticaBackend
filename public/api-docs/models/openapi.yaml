@@ -27,7 +27,7 @@ tags:
 paths:
   '/access_token':
     servers:
-      - 'url': '/'
+      - url: '/'
     options:
       tags:
         - '🔐 Login'
@@ -691,7 +691,7 @@ paths:
       description: Returns status code 204 if `personname` exists.
       operationId: existsPerson
       parameters:
-        - $ref: '#/components/parameters/productName'
+        - $ref: '#/components/parameters/personName'
       responses:
         '204':
           description: Personname exists <Response body is empty>
@@ -726,6 +726,19 @@ paths:
               $ref: '#/components/headers/ETag'
         '404':
           $ref: '#/components/responses/Response_404'
+    options:
+      tags:
+        - '🧑 Persons'
+      summary: Provides the list of HTTP supported methods.
+      description: Return an `Allow` header with a comma separated list of HTTP supported methods.
+      operationId: optionsPersonElements
+      responses:
+        '204':
+          description: '`Allow` header <Response body is empty>'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
 
   '/persons/{personId}/{elementType}/{operationType}/{elementId}':
     parameters:
@@ -957,6 +970,19 @@ paths:
               $ref: '#/components/headers/ETag'
         '404':
           $ref: '#/components/responses/Response_404'
+    options:
+      tags:
+        - '🏛 Entities'
+      summary: Provides the list of HTTP supported methods.
+      description: Return an `Allow` header with a comma separated list of HTTP supported methods.
+      operationId: optionsEntityElements
+      responses:
+        '204':
+          description: '`Allow` header <Response body is empty>'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
 
   '/entities/{entityId}/{elementType}/{operationType}/{elementId}':
     parameters:
@@ -999,6 +1025,263 @@ paths:
           headers:
             Allow:
               $ref: '#/components/headers/Allow'
+
+  '/asociaciones':
+    get:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Retrieves the collection of Asociacion resources.
+      description: Returns all asociaciones from the system.
+      operationId: readAsociaciones
+      responses:
+        '200':
+          description: Object containing an array of Asociaciones
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  asociaciones:
+                    description: Asociaciones array
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Asociacion'
+        '404':
+          $ref: '#/components/responses/Response_404'
+    post:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Creates an Asociacion resource.
+      description: Creates a new asociacion.
+      operationId: createAsociacion
+      security:
+        - MiWApiSecurity: [ writer ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Asociacion'
+      responses:
+        '201':
+          description: '`Created`: asociacion created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asociacion'
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+        '400':
+          $ref: '#/components/responses/Response_400'
+        '401':
+          $ref: '#/components/responses/Response_401'
+        '403':
+          $ref: '#/components/responses/Response_403'
+        '422':
+          $ref: '#/components/responses/Response_422'
+    options:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Provides the list of HTTP supported methods.
+      description: Return an `Allow` header with a comma separated list of HTTP supported methods.
+      operationId: optionsAsociaciones
+      responses:
+        '204':
+          description: '`Allow` header <Response body is empty>'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
+
+  '/asociaciones/{asociacionId}':
+    parameters:
+      - $ref: '#/components/parameters/asociacionId'
+    get:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Retrieves an Asociacion resource based on a single ID.
+      description: Returns the asociacion identified by `asociacionId`.
+      operationId: readAsociacion
+      responses:
+        '200':
+          description: Asociacion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asociacion'
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/Response_404'
+    put:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Updates the Asociacion resource.
+      description: Updates the asociacion identified by `asociacionId`.
+      operationId: updateAsociacion
+      security:
+        - MiWApiSecurity: [ writer ]
+      parameters:
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Asociacion'
+      responses:
+        '209':
+          description: '`Content Returned`: asociacion updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asociacion'
+        '400':
+          $ref: '#/components/responses/Response_400'
+        '401':
+          $ref: '#/components/responses/Response_401'
+        '404':
+          $ref: '#/components/responses/Response_404'
+        '428':
+          $ref: '#/components/responses/Response_428'
+    delete:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Removes the Asociacion resource.
+      description: Deletes the asociacion identified by `asociacionId`.
+      operationId: deleteAsociacion
+      security:
+        - MiWApiSecurity: [ writer ]
+      responses:
+        '204':
+          description: Asociacion deleted <Response body is empty>
+        '401':
+          $ref: '#/components/responses/Response_401'
+        '404':
+          $ref: '#/components/responses/Response_404'
+    options:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Provides the list of HTTP supported methods.
+      description: Return an `Allow` header with a comma separated list of HTTP supported methods.
+      operationId: optionsAsociacion
+      responses:
+        '204':
+          description: '`Allow` header <Response body is empty>'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
+
+  '/asociaciones/asociacionname/{asociacionName}':
+    parameters:
+      - $ref: '#/components/parameters/asociacionName'
+    get:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Determines if asociacion name exists
+      description: Returns status code 204 if `asociacionName` exists.
+      operationId: existsAsociacion
+      responses:
+        '204':
+          description: Asociacion name exists <Response body is empty>
+        '404':
+          $ref: '#/components/responses/Response_404'
+
+
+
+
+  '/asociaciones/{asociacionId}/{elementType}':
+    parameters:
+      - $ref: '#/components/parameters/asociacionId'
+      - $ref: '#/components/parameters/elementAsociacionRelParam'
+    get:
+      tags:
+        - '🏛 Asociaciones'
+      summary: List of elements related to the asociacion
+      description: Returns the elements related to the asociacion `asociacionId`.
+      operationId: readAsociacionElements
+      security:
+        - MiWApiSecurity: [ reader ]
+      responses:
+        '200':
+          description: Array of related elements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elements:
+                    description: Elements array
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Element'
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/Response_404'
+    options:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Provides the list of HTTP supported methods.
+      description: Return an `Allow` header with a comma separated list of HTTP supported methods.
+      operationId: optionsAsociacionElements
+      responses:
+        '204':
+          description: '`Allow` header <Response body is empty>'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
+
+  '/asociaciones/{asociacionId}/{elementType}/{operationType}/{elementId}':
+    parameters:
+      - $ref: '#/components/parameters/asociacionId'
+      - $ref: '#/components/parameters/elementAsociacionRelParam'
+      - $ref: '#/components/parameters/operationParam'
+      - $ref: '#/components/parameters/elementId'
+    put:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Sets or removes the relationship between an asociacion and an element
+      description: Establishes or removes the relationship of the asociacion `asociacionId` with the element `elementId`.
+      operationId: updateAsociacionElementRelationship
+      security:
+        - MiWApiSecurity: [ writer ]
+      responses:
+        '209':
+          description: '`Content Returned`: asociacion updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asociacion'
+        '401':
+          $ref: '#/components/responses/Response_401'
+        '403':
+          $ref: '#/components/responses/Response_403'
+        '404':
+          $ref: '#/components/responses/Response_404'
+        '406':
+          $ref: '#/components/responses/Response_406'
+    options:
+      tags:
+        - '🏛 Asociaciones'
+      summary: Provides the list of HTTP supported methods.
+      description: Return an `Allow` header with a comma separated list of HTTP supported methods.
+      operationId: optionsAsociacionElementRelationship
+      responses:
+        '204':
+          description: '`Allow` header <Response body is empty>'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
+
+
+
+
 
 
 
@@ -1161,6 +1444,7 @@ components:
               type: array
               items:
                 type: integer
+
       examples:
         - entity:
             id: 2
@@ -1171,6 +1455,17 @@ components:
             wikiUrl: 'https://wiki02.example.com/Entity02'
             products: [ 1, 7 ]
             persons: [ 3, 17 ]
+
+    Asociacion:
+      allOf:
+        - $ref: '#/components/schemas/Element'
+        - type: object
+          properties:
+            entities:
+              description: Array of Entity Ids
+              type: array
+              items:
+                type: integer
     Message:
       type: object
       description: HTTP response message
@@ -1548,6 +1843,44 @@ components:
         type: string
         pattern: '^[a-zA-Z0-9()áéíóúÁÉÍÓÚñÑ %$\.+-]+$'
 
+    personName:
+      name: personname
+      in: path
+      description: Name of the person
+      required: true
+      schema:
+        type: string
+
+    asociacionId:
+      name: asociacionId
+      in: path
+      description: ID of asociacion
+      required: true
+      schema:
+        type: integer
+        format: int64
+        minimum: 1
+
+    asociacionName:
+      name: asociacionName
+      in: path
+      description: Name of the asociacion
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-zA-Z0-9()áéíóúÁÉÍÓÚñÑ %$\.+-]+$'
+
+    elementAsociacionRelParam:
+      name: elementType
+      in: path
+      description: |-
+        Sets the type of item related to the Asociacion:
+        <li><b>entities</b>: Entities type element
+      required: true
+      schema:
+        type: string
+        enum:
+          - entities
 
 
   headers:
