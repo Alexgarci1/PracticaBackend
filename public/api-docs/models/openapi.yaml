@@ -690,6 +690,8 @@ paths:
       summary: Determines if personname exists
       description: Returns status code 204 if `personname` exists.
       operationId: existsPerson
+      parameters:
+        - $ref: '#/components/parameters/productName'
       responses:
         '204':
           description: Personname exists <Response body is empty>
@@ -1537,6 +1539,16 @@ components:
           - products
           - persons
           - associations
+    entityName:
+      name: entityname
+      in: path
+      description: Entity name
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-zA-Z0-9()áéíóúÁÉÍÓÚñÑ %$\.+-]+$'
+
+
 
   headers:
     ETag:
