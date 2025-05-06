@@ -14,9 +14,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Http\Response;
 use TDW\ACiencia\Controller\Element\ElementRelationsBaseController;
 use TDW\ACiencia\Controller\Person\PersonQueryController;
-use TDW\ACiencia\Controller\Product\ProductQueryController;
 use TDW\ACiencia\Entity\Entity;
-
+use TDW\ACiencia\Entity\Person;
+use TDW\ACiencia\Entity\Product;
 /**
  * Class EntityRelationsController
  */
@@ -83,7 +83,7 @@ final class EntityRelationsController extends ElementRelationsBaseController
             $request,
             $response,
             $args,
-            \TDW\ACiencia\Entity\Person::class
+            Person::class
         );
     }
 
@@ -101,22 +101,17 @@ final class EntityRelationsController extends ElementRelationsBaseController
         // @TODO
         $entityId = $args[static::getEntityIdName()] ?? 0;
 
-        // Validar que el entityId es un valor válido
         if ($entityId <= 0 || $entityId > 2147483647) {
-            // Si no es válido, devolver la respuesta con el formato adecuado
+
             return $this->getElements($request, $response, null, 'products', []);
         }
 
-        // Buscar la entidad en la base de datos
         /** @var Entity|null $entity */
         $entity = $this->entityManager
             ->getRepository(static::getEntityClassName())
             ->find($entityId);
 
-        // Obtener los productos relacionados con la entidad (si existen)
         $products = $entity?->getProducts()->toArray() ?? [];
-
-        // Devolver los productos relacionados con la entidad a través de getElements
         return $this->getElements($request, $response, $entity, 'products', $products);
     }
 
@@ -138,7 +133,7 @@ final class EntityRelationsController extends ElementRelationsBaseController
             $request,
             $response,
             $args,
-            \TDW\ACiencia\Entity\Product::class
+            Product::class
         );
     }
 }

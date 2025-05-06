@@ -31,7 +31,7 @@ return function (App $app) {
         AsociacionQueryController::class . ':cget'
     )->setName('readAsociaciones');
 
-    // GET|HEAD: Returns a asociacion based on a single ID
+    // GET|HEAD: Returns  asociacion based on a single ID
     $app->map(
         [ 'GET', 'HEAD' ],
         $_ENV['RUTA_API'] . AsociacionQueryController::PATH_ASOCIACIONES . $REGEX_ASOCIACION_ID,

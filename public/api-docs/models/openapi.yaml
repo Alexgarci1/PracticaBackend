@@ -640,6 +640,7 @@ paths:
         $ref: '#/components/requestBodies/ElementRequestBody'
       parameters:
         - $ref: '#/components/parameters/ifMatchParam'
+        - $ref: '#/components/parameters/personId'
       responses:
         '209':
           description: '`Content Returned`: person updated'
@@ -887,6 +888,7 @@ paths:
         $ref: '#/components/requestBodies/ElementRequestBody'
       parameters:
         - $ref: '#/components/parameters/ifMatchParam'
+        - $ref: '#/components/parameters/entityId'
       responses:
         '209':
           description: '`Content Returned`: entity updated'
@@ -1130,6 +1132,7 @@ paths:
         - MiWApiSecurity: [ writer ]
       parameters:
         - $ref: '#/components/parameters/ifMatchParam'
+        - $ref: '#/components/parameters/asociacionId'
       requestBody:
         required: true
         content:

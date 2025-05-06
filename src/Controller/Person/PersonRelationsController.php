@@ -54,7 +54,6 @@ final class PersonRelationsController extends ElementRelationsBaseController
         $productId = $args[static::getEntityIdName()] ?? 0;
 
         if ($productId <= 0 || $productId > 2147483647) {
-            // Si no es válido, devolver la respuesta con el formato adecuado
             return $this->getElements($request, $response, null, 'entities', []);
         }
 
