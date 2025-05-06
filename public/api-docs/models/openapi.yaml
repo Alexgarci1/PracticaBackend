@@ -608,14 +608,14 @@ paths:
               $ref: '#/components/headers/Allow'
 
   '/persons/{personId}':
-    parameters:
-      - $ref: '#/components/parameters/personId'
     get:
       tags:
         - '🧑 Persons'
       summary: Retrieves a Person resource based on a single ID.
       description: Returns the person identified by `personId`.
       operationId: readPerson
+      parameters:
+        - $ref: '#/components/parameters/personId'
       responses:
         '200':
           description: Person
@@ -661,6 +661,8 @@ paths:
       summary: Removes the Person resource.
       description: Deletes the person identified by `personId`.
       operationId: deletePerson
+      parameters:
+        - $ref: '#/components/parameters/personId'
       security:
         - MiWApiSecurity: [ writer ]
       responses:
@@ -699,15 +701,15 @@ paths:
           $ref: '#/components/responses/Response_404'
 
   '/persons/{personId}/{elementType}':
-    parameters:
-      - $ref: '#/components/parameters/personId'
-      - $ref: '#/components/parameters/elementPersonRelParam'
     get:
       tags:
         - '🧑 Persons'
       summary: List of elements related to the person
       description: Returns the elements related to the person `personId`
       operationId: readPersonElements
+      parameters:
+        - $ref: '#/components/parameters/personId'
+        - $ref: '#/components/parameters/elementPersonRelParam'
       responses:
         '200':
           description: Array of Elements
@@ -741,17 +743,17 @@ paths:
 
 
   '/persons/{personId}/{elementType}/{operationType}/{elementId}':
-    parameters:
-      - $ref: '#/components/parameters/personId'
-      - $ref: '#/components/parameters/elementPersonRelParam'
-      - $ref: '#/components/parameters/operationParam'
-      - $ref: '#/components/parameters/elementId'
     put:
       tags:
         - '🧑 Persons'
       summary: Sets or removes the relationship person-element
       description: Establishes/Removes the relationship of the person with the element
       operationId: api_persons_add_rem_element
+      parameters:
+        - $ref: '#/components/parameters/personId'
+        - $ref: '#/components/parameters/elementPersonRelParam'
+        - $ref: '#/components/parameters/operationParam'
+        - $ref: '#/components/parameters/elementId'
       security:
         - MiWApiSecurity: [ writer ]
       responses:
@@ -852,14 +854,15 @@ paths:
               $ref: '#/components/headers/Allow'
 
   '/entities/{entityId}':
-    parameters:
-      - $ref: '#/components/parameters/entityId'
+
     get:
       tags:
         - '🏛 Entities'
       summary: Retrieves an Entity resource based on a single ID.
       description: Returns the entity identified by `entityId`.
       operationId: readEntity
+      parameters:
+        - $ref: '#/components/parameters/entityId'
       responses:
         '200':
           description: Entity
@@ -905,6 +908,8 @@ paths:
       summary: Removes the Entity resource.
       description: Deletes the entity identified by `entityId`.
       operationId: deleteEntity
+      parameters:
+        - $ref: '#/components/parameters/entityId'
       security:
         - MiWApiSecurity: [ writer ]
       responses:
@@ -943,15 +948,15 @@ paths:
           $ref: '#/components/responses/Response_404'
 
   '/entities/{entityId}/{elementType}':
-    parameters:
-      - $ref: '#/components/parameters/entityId'
-      - $ref: '#/components/parameters/elementEntityRelParam'
     get:
       tags:
         - '🏛 Entities'
       summary: List of elements related to the entity
       description: Returns the elements related to the entity `entityId`
       operationId: readEntityElements
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+        - $ref: '#/components/parameters/elementEntityRelParam'
       responses:
         '200':
           description: Array of Elements
@@ -985,17 +990,17 @@ paths:
 
 
   '/entities/{entityId}/{elementType}/{operationType}/{elementId}':
-    parameters:
-      - $ref: '#/components/parameters/entityId'
-      - $ref: '#/components/parameters/elementEntityRelParam'
-      - $ref: '#/components/parameters/operationParam'
-      - $ref: '#/components/parameters/elementId'
     put:
       tags:
         - '🏛 Entities'
       summary: Sets or removes the relationship entity-element
       description: Establishes/Removes the relationship of the entity with the element
       operationId: api_entities_add_rem_element
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+        - $ref: '#/components/parameters/elementEntityRelParam'
+        - $ref: '#/components/parameters/operationParam'
+        - $ref: '#/components/parameters/elementId'
       security:
         - MiWApiSecurity: [ writer ]
       responses:
@@ -1033,6 +1038,10 @@ paths:
       summary: Retrieves the collection of Asociacion resources.
       description: Returns all asociaciones from the system.
       operationId: readAsociaciones
+      parameters:
+        - $ref: '#/components/parameters/elementTextParam'
+        - $ref: '#/components/parameters/orderParam'
+        - $ref: '#/components/parameters/orderingParam'
       responses:
         '200':
           description: Object containing an array of Asociaciones
@@ -1091,14 +1100,14 @@ paths:
 
 
   '/asociaciones/{asociacionId}':
-    parameters:
-      - $ref: '#/components/parameters/asociacionId'
     get:
       tags:
         - '🏛 Asociaciones'
       summary: Retrieves an Asociacion resource based on a single ID.
       description: Returns the asociacion identified by `asociacionId`.
       operationId: readAsociacion
+      parameters:
+        - $ref: '#/components/parameters/asociacionId'
       responses:
         '200':
           description: Asociacion
@@ -1148,6 +1157,8 @@ paths:
       summary: Removes the Asociacion resource.
       description: Deletes the asociacion identified by `asociacionId`.
       operationId: deleteAsociacion
+      parameters:
+        - $ref: '#/components/parameters/asociacionId'
       security:
         - MiWApiSecurity: [ writer ]
       responses:
@@ -1190,15 +1201,15 @@ paths:
 
 
   '/asociaciones/{asociacionId}/{elementType}':
-    parameters:
-      - $ref: '#/components/parameters/asociacionId'
-      - $ref: '#/components/parameters/elementAsociacionRelParam'
     get:
       tags:
         - '🏛 Asociaciones'
       summary: List of elements related to the asociacion
       description: Returns the elements related to the asociacion `asociacionId`.
       operationId: readAsociacionElements
+      parameters:
+        - $ref: '#/components/parameters/asociacionId'
+        - $ref: '#/components/parameters/elementAsociacionRelParam'
       security:
         - MiWApiSecurity: [ reader ]
       responses:
@@ -1234,17 +1245,17 @@ paths:
 
 
   '/asociaciones/{asociacionId}/{elementType}/{operationType}/{elementId}':
-    parameters:
-      - $ref: '#/components/parameters/asociacionId'
-      - $ref: '#/components/parameters/elementAsociacionRelParam'
-      - $ref: '#/components/parameters/operationParam'
-      - $ref: '#/components/parameters/elementId'
     put:
       tags:
         - '🏛 Asociaciones'
       summary: Sets or removes the relationship between an asociacion and an element
       description: Establishes or removes the relationship of the asociacion `asociacionId` with the element `elementId`.
       operationId: updateAsociacionElementRelationship
+      parameters:
+        - $ref: '#/components/parameters/asociacionId'
+        - $ref: '#/components/parameters/elementAsociacionRelParam'
+        - $ref: '#/components/parameters/operationParam'
+        - $ref: '#/components/parameters/elementId'
       security:
         - MiWApiSecurity: [ writer ]
       responses:

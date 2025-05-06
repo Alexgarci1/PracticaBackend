@@ -51,26 +51,20 @@ final class PersonRelationsController extends ElementRelationsBaseController
     public function getEntities(Request $request, Response $response, array $args): Response
     {
         // @TODO
-
-        // Obtener el productId de los parámetros de la ruta
         $productId = $args[static::getEntityIdName()] ?? 0;
 
-        // Validar que el productId es un valor válido
         if ($productId <= 0 || $productId > 2147483647) {
             // Si no es válido, devolver la respuesta con el formato adecuado
             return $this->getElements($request, $response, null, 'entities', []);
         }
 
-        // Buscar el producto en la base de datos
         /** @var Product|null $product */
         $product = $this->entityManager
             ->getRepository(static::getEntityClassName())
             ->find($productId);
 
-        // Obtener las entidades relacionadas con el producto (si existen)
-        $entities = $product?->getEntities()->toArray() ?? [];
 
-        // Devolver las entidades relacionadas con el producto a través de getElements
+        $entities = $product?->getEntities()->toArray() ?? [];
         return $this->getElements($request, $response, $product, 'entities', $entities);
     }
 
