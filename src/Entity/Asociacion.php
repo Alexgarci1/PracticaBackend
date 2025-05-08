@@ -19,7 +19,7 @@ use ReflectionObject;
 #[ORM\UniqueConstraint(name: "Asociacion_name_uindex", columns: [ "name" ])]
 class Asociacion extends Element
 {
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $websiteUrl;
 
     #[ORM\ManyToMany(targetEntity: Entity::class)]

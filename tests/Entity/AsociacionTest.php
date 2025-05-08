@@ -106,7 +106,7 @@ class AsociacionTest extends TestCase
         $entity = EntityFactory::createElement($entityName);
 
         self::$asociacion->addEntity($entity);
-        self::$asociacion->addEntity($entity);  // Añadir dos veces
+        self::$asociacion->addEntity($entity);
         self::assertNotEmpty(self::$asociacion->getEntities());
         self::assertTrue(self::$asociacion->containsEntity($entity));
 

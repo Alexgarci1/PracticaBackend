@@ -17,6 +17,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Http\Response;
 use TDW\ACiencia\Controller\TraitController;
 use TDW\ACiencia\Entity\{ Element, ElementInterface };
+use TDW\ACiencia\Factory\AsociacionFactory;
 use TDW\ACiencia\Factory\ElementFactory;
 use TDW\ACiencia\Utility\Error;
 
@@ -79,7 +80,14 @@ abstract class ElementBaseCommandController
         // 201
         /** @var class-string<ElementFactory> $elementFactory */
         $elementFactory = static::getFactoryClassName();
-        $element = $elementFactory::createElement($req_data['name']);
+        if ($elementFactory === AsociacionFactory::class) {
+            if (!isset($req_data['websiteUrl'])) {
+                return Error::createResponse($response, StatusCode::STATUS_UNPROCESSABLE_ENTITY);
+            }
+            $element = $elementFactory::createElement($req_data['name'], $req_data['websiteUrl']);
+        } else {
+            $element = $elementFactory::createElement($req_data['name']);
+        }
         $this->updateElement($element, $req_data);
         $this->entityManager->persist($element);
         $this->entityManager->flush();

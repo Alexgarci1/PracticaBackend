@@ -17,14 +17,15 @@ class AsociacionFactory
 
     public static function createElement(
         string $name,
-        ?string $websiteUrl = null,
+        string $websiteUrl,
         ?DateTime $birthDate = null,
         ?DateTime $deathDate = null,
         ?string $imageUrl = null,
         ?string $wikiUrl = null
-    ): Asociacion
-    {
+    ): Asociacion {
         assert($name !== '');
-        return new Asociacion($name, $websiteUrl ?? '', $birthDate, $deathDate, $imageUrl, $wikiUrl);
+        assert($websiteUrl !== '');
+        return new Asociacion($name, $websiteUrl, $birthDate, $deathDate, $imageUrl, $wikiUrl);
     }
 }
+

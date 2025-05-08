@@ -157,10 +157,9 @@ class AsociacionesControllerTest extends BaseTestCase
     #[TestsAttr\Depends('testPostAsociacion201Created')]
     public function testPostAsociacion400BadRequest(array $asociaciones): void
     {
-        // Mismo username
-        $p_data = [
-            'name' => $asociaciones['name'],
-        ];
+
+        $p_data = ['name' => $asociaciones['name'], 'websiteUrl' => self::$faker->url()];
+
         $response = $this->runApp(
             'POST',
             self::RUTA_API,
@@ -309,6 +308,7 @@ class AsociacionesControllerTest extends BaseTestCase
     {
         $p_data = [
             'name'  => self::$faker->words(3, true),
+            'websiteUrl'  => self::$faker->url(),
             'birthDate' => self::$faker->date(),
             'deathDate' => self::$faker->date(),
             'imageUrl'  => self::$faker->url(), // imageUrl(),
@@ -347,7 +347,8 @@ class AsociacionesControllerTest extends BaseTestCase
     #[TestsAttr\Depends('testPutAsociacion209Updated')]
     public function testPutAsociacion400BadRequest(array $asociacion): void
     {
-        $p_data = [ 'name' => self::$faker->words(3, true) ];
+        $p_data = ['name' => self::$faker->words(3, true), 'websiteUrl' => self::$faker->url()];
+
         $this->runApp(
             'POST',
             self::RUTA_API,
@@ -361,7 +362,6 @@ class AsociacionesControllerTest extends BaseTestCase
             self::$writer['authHeader']
         );
 
-        // asociacionname already exists
         $response = $this->runApp(
             'PUT',
             self::RUTA_API . '/' . $asociacion['id'],
