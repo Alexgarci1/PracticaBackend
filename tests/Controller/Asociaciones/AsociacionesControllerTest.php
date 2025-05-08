@@ -10,6 +10,7 @@
 namespace TDW\Test\ACiencia\Controller\Asociaciones;
 
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
+use JetBrains\PhpStorm\ArrayShape;
 use PHPUnit\Framework\Attributes as TestsAttr;
 use TDW\ACiencia\Controller\Asociacion\{ AsociacionCommandController, AsociacionQueryController };
 use TDW\ACiencia\Controller\Element\{ ElementBaseCommandController, ElementBaseQueryController };
@@ -122,6 +123,8 @@ class AsociacionesControllerTest extends BaseTestCase
         self::assertSame($p_data['deathDate'], $AsociacionData['deathDate']);
         self::assertSame($p_data['imageUrl'], $AsociacionData['imageUrl']);
         self::assertSame($p_data['wikiUrl'], $AsociacionData['wikiUrl']);
+        self::assertSame($p_data['websiteUrl'], $AsociacionData['websiteUrl']);
+
 
         return $AsociacionData;
     }
@@ -335,6 +338,8 @@ class AsociacionesControllerTest extends BaseTestCase
         self::assertSame($p_data['deathDate'], $product_aux['asociacion']['deathDate']);
         self::assertSame($p_data['imageUrl'], $product_aux['asociacion']['imageUrl']);
         self::assertSame($p_data['wikiUrl'], $product_aux['asociacion']['wikiUrl']);
+        self::assertSame($p_data['websiteUrl'], $product_aux['asociacion']['websiteUrl']);
+
 
         return $product_aux['asociacion'];
     }
@@ -523,6 +528,7 @@ class AsociacionesControllerTest extends BaseTestCase
         );
         $this->internalTestError($response, $statusCode);
     }
+
 
     // --------------
     // DATA PROVIDERS

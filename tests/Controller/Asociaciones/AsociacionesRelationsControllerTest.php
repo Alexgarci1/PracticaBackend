@@ -3,7 +3,6 @@
 namespace TDW\Test\ACiencia\Controller\Asociaciones;
 
 use Doctrine\ORM\EntityManagerInterface;
-use JsonException;
 use PHPUnit\Framework\Attributes as TestsAttr;
 use TDW\ACiencia\Controller\Asociacion\AsociacionRelationsController;
 use TDW\ACiencia\Controller\Element\ElementRelationsBaseController;
