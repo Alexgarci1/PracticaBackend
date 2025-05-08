@@ -19,8 +19,8 @@ use ReflectionObject;
 #[ORM\UniqueConstraint(name: "Asociacion_name_uindex", columns: [ "name" ])]
 class Asociacion extends Element
 {
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $websiteUrl;
+    #[ORM\Column(name:'websiteUrl' ,type: 'string', length: 255, nullable: false)]
+    protected string $websiteUrl;
 
     #[ORM\ManyToMany(targetEntity: Entity::class)]
     #[ORM\JoinTable(name: "entity_belongs_asociacion")]
@@ -51,7 +51,7 @@ class Asociacion extends Element
         $this->entities = new ArrayCollection();
     }
 
-    // Website URL
+
 
     public function getWebsiteUrl(): string
     {
@@ -63,7 +63,7 @@ class Asociacion extends Element
         $this->websiteUrl = $websiteUrl;
     }
 
-    // Entities
+
 
     /**
      * Gets the entities that belong to the association
@@ -119,8 +119,10 @@ class Asociacion extends Element
     public function __toString(): string
     {
         return sprintf(
-            '%s entities=%s)]',
+
+            '%s entities=%s, websiteUrl=%s)]',
             parent::__toString(),
+            $this->getWebsiteUrl(),
             $this->getCodesStr($this->getEntities())
         );
     }
@@ -135,7 +137,7 @@ class Asociacion extends Element
         $data = parent::jsonSerialize();
         $data['websiteUrl'] = $this->websiteUrl;
         $numEntities = count($this->getEntities());
-        $data['entities'] = $numEntities !== 0 ? $this->getCodes($this->getEntities()) : null;
+        $data['entities'] = $numEntities !== 0 ? $this->getCodes($this->getEntities()) : [];
 
         return [strtolower($reflection->getShortName()) => $data];
     }

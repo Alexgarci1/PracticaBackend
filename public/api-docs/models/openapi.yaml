@@ -1471,6 +1471,10 @@ components:
         - $ref: '#/components/schemas/Element'
         - type: object
           properties:
+            websiteUrl:
+              description: URL del sitio web oficial de la asociación
+              type: string
+              format: uri
             entities:
               description: Array of Entity Ids
               type: array

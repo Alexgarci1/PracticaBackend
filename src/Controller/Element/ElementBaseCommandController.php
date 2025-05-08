@@ -66,7 +66,7 @@ abstract class ElementBaseCommandController
 
         $req_data = (array) $request->getParsedBody();
 
-        if (!isset($req_data['name'])) { // 422 - Faltan datos
+        if (!isset($req_data['name'])) { // 422
             return Error::createResponse($response, StatusCode::STATUS_UNPROCESSABLE_ENTITY);
         }
 
@@ -80,14 +80,7 @@ abstract class ElementBaseCommandController
         // 201
         /** @var class-string<ElementFactory> $elementFactory */
         $elementFactory = static::getFactoryClassName();
-        if ($elementFactory === AsociacionFactory::class) {
-            if (!isset($req_data['websiteUrl'])) {
-                return Error::createResponse($response, StatusCode::STATUS_UNPROCESSABLE_ENTITY);
-            }
-            $element = $elementFactory::createElement($req_data['name'], $req_data['websiteUrl']);
-        } else {
-            $element = $elementFactory::createElement($req_data['name']);
-        }
+        $element = $elementFactory::createElement($req_data['name']);
         $this->updateElement($element, $req_data);
         $this->entityManager->persist($element);
         $this->entityManager->flush();

@@ -31,6 +31,11 @@ class Entity extends Element
     #[ORM\OrderBy([ "id" => "ASC" ])]
     protected Collection $products;
 
+
+    #[ORM\ManyToMany(targetEntity: Asociacion::class, mappedBy: "entities")]
+    #[ORM\OrderBy([ "id" => "ASC" ])]
+    protected Collection $asociaciones;
+
     /**
      * Entity constructor.
      *
@@ -52,6 +57,7 @@ class Entity extends Element
         $this->persons = new ArrayCollection();
         /* Initialize products collection */
         $this->products = new ArrayCollection();
+        $this->asociaciones = new ArrayCollection();
     }
 
     // Persons
@@ -154,6 +160,62 @@ class Entity extends Element
         $result = $this->products->removeElement($product);
         $product->removeEntity($this);
         return $result;
+    }
+
+
+
+    // Asociaciones
+
+    /**
+     * Obtains the associations linked to this entity
+     *
+     * @return Collection<Asociacion>
+     */
+    public function getAsociaciones(): Collection
+    {
+        return $this->asociaciones;
+    }
+
+    /**
+     * Determines whether the entity is linked to the given association
+     *
+     * @param Asociacion $asociacion
+     * @return bool
+     */
+    public function containsAsociacion(Asociacion $asociacion): bool
+    {
+        return $this->asociaciones->contains($asociacion);
+    }
+
+    /**
+     * Adds an association to this entity
+     *
+     * @param Asociacion $asociacion
+     *
+     * @return void
+     */
+    public function addAsociacion(Asociacion $asociacion): void
+    {
+        if (!$this->asociaciones->contains($asociacion)) {
+            $this->asociaciones->add($asociacion);
+            $asociacion->addEntity($this);
+        }
+    }
+
+    /**
+     * Removes an association from this entity
+     *
+     * @param Asociacion $asociacion
+     *
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeAsociacion(Asociacion $asociacion): bool
+    {
+        if ($this->asociaciones->removeElement($asociacion)) {
+            $asociacion->removeEntity($this); // Solo si quieres mantener bidireccionalidad
+            return true;
+        }
+        return false;
     }
 
     /**

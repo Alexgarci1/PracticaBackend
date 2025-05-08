@@ -152,6 +152,25 @@ class EntityTest extends TestCase
         self::assertFalse($product->containsEntity(self::$entity));
     }
 
+    public function testGetAddContainsRemoveAsociaciones(): void
+    {
+        self::assertEmpty(self::$entity->getAsociaciones());
+        $slug = self::$faker->slug();
+        self::assertNotEmpty($slug);
+        $asociacion = Factory\AsociacionFactory::createElement($slug);
+
+        self::$entity->addAsociacion($asociacion);
+        self::assertNotEmpty(self::$entity->getAsociaciones());
+        self::assertTrue(self::$entity->containsAsociacion($asociacion));
+        self::assertTrue($asociacion->containsEntity(self::$entity));
+
+        self::$entity->removeAsociacion($asociacion);
+        self::assertFalse(self::$entity->containsAsociacion($asociacion));
+        self::assertCount(0, self::$entity->getAsociaciones());
+        self::assertFalse(self::$entity->removeAsociacion($asociacion));
+        self::assertFalse($asociacion->containsEntity(self::$entity));
+    }
+
     public function testToString(): void
     {
         /** @var non-empty-string $entityName */

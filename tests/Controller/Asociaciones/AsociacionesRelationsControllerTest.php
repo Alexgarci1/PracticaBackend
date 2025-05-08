@@ -59,7 +59,7 @@ final class AsociacionesRelationsControllerTest extends BaseTestCase
         self::$entityManager = DoctrineConnector::getEntityManager();
 
         self::$entity = EntityFactory::createElement(self::$faker->company());
-        self::$asociacion = AsociacionFactory::createElement(self::$faker->company(),self::$faker->url());
+        self::$asociacion = AsociacionFactory::createElement(self::$faker->company());
 
         self::$entityManager->persist(self::$entity);
         self::$entityManager->persist(self::$asociacion);

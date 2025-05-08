@@ -35,19 +35,17 @@ class AsociacionTest extends TestCase
         $name = self::$faker->company();
         $websiteUrl = self::$faker->url();
         self::assertNotEmpty($name);
-        self::$asociacion = AsociacionFactory::createElement($name, $websiteUrl);
+        self::$asociacion = AsociacionFactory::createElement($name);
     }
 
     public function testConstructor(): void
     {
         $name = self::$faker->company();
-        $websiteUrl = self::$faker->url();
         self::assertNotEmpty($name);
-        self::$asociacion = AsociacionFactory::createElement($name, $websiteUrl);
+        self::$asociacion = AsociacionFactory::createElement($name);
 
         self::assertSame(0, self::$asociacion->getId());
         self::assertSame($name, self::$asociacion->getName());
-        self::assertSame($websiteUrl, self::$asociacion->getWebsiteUrl());
         self::assertEmpty(self::$asociacion->getEntities());
     }
 
