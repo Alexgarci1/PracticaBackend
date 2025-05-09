@@ -98,6 +98,7 @@ class Asociacion extends Element
     {
         if (!$this->containsEntity($entity)) {
             $this->entities->add($entity);
+            $entity->addAsociacion($this);
         }
     }
 

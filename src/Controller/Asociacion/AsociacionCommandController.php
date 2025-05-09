@@ -73,7 +73,7 @@ class AsociacionCommandController extends ElementBaseCommandController
             ->withJson($element, StatusCode::STATUS_CREATED);
     }
 
-    // Sobreescribimos SOLO put
+
     public function put(Request $request, Response $response, array $args): Response
     {
         assert($request->getMethod() === 'PUT');

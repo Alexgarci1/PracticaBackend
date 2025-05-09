@@ -14,6 +14,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Http\Response;
 use TDW\ACiencia\Controller\Element\ElementRelationsBaseController;
 use TDW\ACiencia\Controller\Person\PersonQueryController;
+use TDW\ACiencia\Entity\Asociacion;
 use TDW\ACiencia\Entity\Entity;
 use TDW\ACiencia\Entity\Person;
 use TDW\ACiencia\Entity\Product;
@@ -136,4 +137,44 @@ final class EntityRelationsController extends ElementRelationsBaseController
             Product::class
         );
     }
+
+    public function getAsociaciones(Request $request, Response $response, array $args): Response
+    {
+        $entityId = $args[static::getEntityIdName()] ?? 0;
+
+        if ($entityId <= 0 || $entityId > 2147483647) {
+            return $this->getElements($request, $response, null, 'asociaciones', []);
+        }
+
+        /** @var Entity|null $entity */
+        $entity = $this->entityManager
+            ->getRepository(static::getEntityClassName())
+            ->find($entityId);
+
+        $asociaciones = $entity?->getAsociaciones()->toArray() ?? [];
+        return $this->getElements($request, $response, $entity, 'asociaciones', $asociaciones);
+    }
+
+
+    /**
+     * PUT /entities/{entityId}/associations/add/{elementId}
+     * PUT /entities/{entityId}/associations/rem/{elementId}
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param array<string,mixed> $args
+     *
+     * @return Response
+     * @throws ORM\Exception\ORMException
+     */
+    public function operationAsociacion(Request $request, Response $response, array $args): Response
+    {
+        return $this->operationRelatedElements(
+            $request,
+            $response,
+            $args,
+            Asociacion::class
+        );
+    }
+
 }

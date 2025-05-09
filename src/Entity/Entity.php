@@ -212,7 +212,7 @@ class Entity extends Element
     public function removeAsociacion(Asociacion $asociacion): bool
     {
         if ($this->asociaciones->removeElement($asociacion)) {
-            $asociacion->removeEntity($this); // Solo si quieres mantener bidireccionalidad
+            $asociacion->removeEntity($this);
             return true;
         }
         return false;
@@ -244,6 +244,9 @@ class Entity extends Element
         $data['products'] = $numProducts !== 0 ? $this->getCodes($this->getProducts()) : null;
         $numPersons = count($this->getPersons());
         $data['persons'] = $numPersons !== 0 ? $this->getCodes($this->getPersons()) : null;
+        $numAsociaciones = count($this->getAsociaciones());
+        $data['asociaciones'] = $numAsociaciones !== 0 ? $this->getCodes($this->getAsociaciones()) : null;
+
 
         return [strtolower($reflection->getShortName()) => $data];
     }

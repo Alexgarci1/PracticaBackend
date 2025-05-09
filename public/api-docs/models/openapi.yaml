@@ -1454,6 +1454,11 @@ components:
               type: array
               items:
                 type: integer
+            asociaciones:
+              description: Array of asociaciones Ids
+              type: array
+              items:
+                type: integer
 
       examples:
         - entity:
@@ -1881,7 +1886,7 @@ components:
         enum:
           - products
           - persons
-          - associations
+          - asociaciones
     entityName:
       name: entityname
       in: path

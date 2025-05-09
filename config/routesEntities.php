@@ -123,4 +123,30 @@ return function (App $app) {
         EntityRelationsController::class . ':operationProduct'
     )->setName('tdw_entities_rem_product')
         ->add(JwtMiddleware::class);
+
+    // GET /entities/{entityId}/asociaciones
+    $app->get(
+        $_ENV['RUTA_API'] . EntityQueryController::PATH_ENTITIES . $REGEX_ENTITY_ID . '/asociaciones',
+        EntityRelationsController::class . ':getAsociaciones'
+    )->setName('readEntityAsociaciones');
+//    ->add(JwtMiddleware::class);
+
+// PUT /entities/{entityId}/asociaciones/add/{elementId}
+    $app->put(
+        $_ENV['RUTA_API'] . EntityCommandController::PATH_ENTITIES . $REGEX_ENTITY_ID
+        . '/asociaciones/add' . $REGEX_ELEMENT_ID,
+        EntityRelationsController::class . ':operationAsociacion'
+    )->setName('tdw_entities_add_asociacion')
+        ->add(JwtMiddleware::class);
+
+// PUT /entities/{entityId}/asociaciones/rem/{elementId}'
+    $app->put(
+        $_ENV['RUTA_API'] . EntityCommandController::PATH_ENTITIES . $REGEX_ENTITY_ID
+        . '/asociaciones/rem' . $REGEX_ELEMENT_ID,
+        EntityRelationsController::class . ':operationAsociacion'
+    )->setName('tdw_entities_rem_asociacion')
+        ->add(JwtMiddleware::class);
+
+
+
 };

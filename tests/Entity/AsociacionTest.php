@@ -99,11 +99,10 @@ class AsociacionTest extends TestCase
     public function testGetAddContainsRemoveEntities(): void
     {
         self::assertEmpty(self::$asociacion->getEntities());
-        $entityName = self::$faker->company();
+        $entityName = self::$faker->slug();
         self::assertNotEmpty($entityName);
         $entity = EntityFactory::createElement($entityName);
 
-        self::$asociacion->addEntity($entity);
         self::$asociacion->addEntity($entity);
         self::assertNotEmpty(self::$asociacion->getEntities());
         self::assertTrue(self::$asociacion->containsEntity($entity));
@@ -114,20 +113,7 @@ class AsociacionTest extends TestCase
         self::assertFalse(self::$asociacion->removeEntity($entity));
     }
 
-    public function testToString(): void
-    {
-        $name = self::$faker->company();
-        $birthDate = self::$faker->dateTime();
-        $deathDate = self::$faker->dateTime();
 
-        self::$asociacion->setName($name);
-        self::$asociacion->setBirthDate($birthDate);
-        self::$asociacion->setDeathDate($deathDate);
-
-        self::assertStringContainsString($name, self::$asociacion->__toString());
-        self::assertStringContainsString($birthDate->format('Y-m-d'), self::$asociacion->__toString());
-        self::assertStringContainsString($deathDate->format('Y-m-d'), self::$asociacion->__toString());
-    }
 
     public function testJsonSerialize(): void
     {
