@@ -1868,17 +1868,20 @@ components:
           - entities
           - persons
 
+
     elementPersonRelParam:
       name: elementType
       in: path
       description: |-
         Sets the type of item related to the Person:
         <li><b>entities</b>: Entities type element
+        <li><b>products</b>: Products type element
       required: true
       schema:
         type: string
         enum:
           - entities
+          - products
 
     elementEntityRelParam:
       name: elementType
