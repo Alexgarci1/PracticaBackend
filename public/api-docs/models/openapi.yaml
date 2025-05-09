@@ -1086,7 +1086,7 @@ paths:
         '403':
           $ref: '#/components/responses/Response_403'
         '422':
-          $ref: '#/components/responses/Response_422'
+          $ref: '#/components/responses/Response_422Asociacion'
     options:
       tags:
         - '🏛 Asociaciones'
@@ -1566,7 +1566,15 @@ components:
           examples:
             response-422:
               $ref: '#/components/examples/response-422'
-
+    Response_422Asociacion:
+      description: '`UNPROCESSABLE ENTITY`: Username or websiteUrl is left out'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          examples:
+            response-422Asociacion:
+              $ref: '#/components/examples/response-422Asociacion'
   requestBodies:
     UserRequestBody:
       description: '`User` data'
@@ -1981,6 +1989,10 @@ components:
       value:
         code: 422
         message: 'UNPROCESSABLE ENTITY: name, e-mail or password is left out'
+    response-422Asociacion:
+      value:
+        code: 422
+        message: 'UNPROCESSABLE ENTITY: name or websiteUrl is left out'
 
   securitySchemes:
     MiWApiSecurity:

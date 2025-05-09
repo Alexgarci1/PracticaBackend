@@ -97,7 +97,7 @@ class AsociacionesControllerTest extends BaseTestCase
     public function testPostAsociacion201Created(): array
     {
         $p_data = [
-            'name'       => self::$faker->words(3, true),
+            'name'       => self::$faker->company(),
             'websiteUrl' => self::$faker->url(),
             'birthDate'  => self::$faker->date(),
             'deathDate'  => self::$faker->date(),
